@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { HydroChillLogo } from '@/components/icons';
 
@@ -19,6 +20,7 @@ export default function Footer() {
           <div className="flex gap-4">
             <Link href="/features" className="text-sm text-primary hover:underline">Features</Link>
             <Link href="/about" className="text-sm text-primary hover:underline">About</Link>
+            <Link href="/upload" className="text-sm text-primary hover:underline">Upload</Link>
           </div>
         </div>
       </div>

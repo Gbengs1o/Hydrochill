@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -13,6 +14,7 @@ const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/features', label: 'Features' },
   { href: '/about', label: 'About Us' },
+  { href: '/upload', label: 'Upload' },
 ];
 
 export default function Header() {
