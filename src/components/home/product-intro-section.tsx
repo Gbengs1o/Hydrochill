@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
 export default function ProductIntroSection() {
   return (
@@ -23,7 +24,16 @@ export default function ProductIntroSection() {
           </Button>
         </div>
         <div className="flex justify-center">
-          {/* The image that was here has been removed as requested. */}
+          <Card className="overflow-hidden rounded-xl shadow-2xl w-full aspect-video">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/wueUdMgbrBQ?autoplay=1&loop=1&playlist=wueUdMgbrBQ&controls=0&mute=1&showinfo=0&autohide=1"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </Card>
         </div>
       </div>
     </section>
