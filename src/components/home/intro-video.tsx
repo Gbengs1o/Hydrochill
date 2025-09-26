@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Loader2 } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
 
 // YouTube Video ID from the URL: https://youtu.be/zI-raje6Qpc
 const VIDEO_ID = 'zI-raje6Qpc';
@@ -15,20 +15,29 @@ type IntroVideoProps = {
 
 export default function IntroVideo({ onComplete }: IntroVideoProps) {
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    // Timer to start fading out the video
     const fadeTimer = setTimeout(() => {
       setIsFadingOut(true);
     }, VIDEO_DURATION_MS);
 
-    // The onComplete callback will be triggered by the onAnimationEnd event
-    // which happens after the fade-out animation (1s) completes.
+    // Interval to update the progress bar
+    const progressInterval = setInterval(() => {
+      setProgress(prev => {
+        const nextProgress = prev + (100 / (VIDEO_DURATION_MS / 100));
+        return Math.min(nextProgress, 100);
+      });
+    }, 100);
 
-    return () => clearTimeout(fadeTimer);
+    return () => {
+      clearTimeout(fadeTimer);
+      clearInterval(progressInterval);
+    };
   }, [onComplete]);
 
   const handleAnimationEnd = () => {
-    // This function is called when the fade-out animation finishes
     if (isFadingOut) {
       onComplete();
     }
@@ -49,10 +58,10 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
         allowFullScreen
         className="w-full h-full"
       ></iframe>
-       <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
-        <div className="flex flex-col items-center text-white">
-          <Loader2 className="h-12 w-12 animate-spin mb-4" />
-          <p className="text-xl font-semibold tracking-wider">SITE LOADING...</p>
+       <div className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none">
+        <div className="w-1/3 max-w-sm flex flex-col items-center text-white text-center">
+            <p className="text-lg font-semibold tracking-wider mb-4">Experience the future...</p>
+            <Progress value={progress} className="w-full h-2 bg-white/20" />
         </div>
       </div>
     </div>
