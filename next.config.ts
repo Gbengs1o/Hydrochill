@@ -28,6 +28,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'violet-finch-601645.hostingersite.com',
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
 };
