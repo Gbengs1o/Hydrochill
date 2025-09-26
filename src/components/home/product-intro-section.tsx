@@ -26,8 +26,8 @@ export default function ProductIntroSection() {
         <div className="flex justify-center">
           <Card className="overflow-hidden rounded-xl shadow-2xl w-full aspect-video">
             <iframe
-              className="w-full h-full"
-              src="https://www.youtube.com/embed/wueUdMgbrBQ?autoplay=1&loop=1&playlist=wueUdMgbrBQ&controls=0&mute=1&showinfo=0&autohide=1"
+              className="w-full h-full pointer-events-none"
+              src="https://www.youtube.com/embed/wueUdMgbrBQ?autoplay=1&loop=1&playlist=wueUdMgbrBQ&controls=0&mute=1&showinfo=0&autohide=1&modestbranding=1&rel=0"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
