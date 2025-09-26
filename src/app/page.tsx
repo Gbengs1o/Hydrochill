@@ -7,6 +7,7 @@ import HeroSection from '@/components/home/hero-section';
 import ProductIntroSection from '@/components/home/product-intro-section';
 import IntroVideo from '@/components/home/intro-video';
 import ConceptPhaseSection from '@/components/home/concept-phase-section';
+import EarlyAccessSection from '@/components/home/early-access-section';
 
 const SESSION_STORAGE_KEY = 'hydrochill_intro_played';
 
@@ -44,6 +45,7 @@ export default function Home() {
       <BenefitsSection />
       <ProductIntroSection />
       <ConceptPhaseSection />
+      <EarlyAccessSection />
     </main>
   );
 }
