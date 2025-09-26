@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, ShieldCheck, Smartphone, Thermometer } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Smartphone, Thermometer, Zap, Droplets, ThermometerSun } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
@@ -13,33 +13,68 @@ export default function Home() {
     <div className="flex flex-col min-h-dvh">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[80vh] min-h-[600px] w-full flex items-center justify-center text-center text-white">
+        <section className="relative w-full h-screen min-h-[700px] flex items-center justify-center text-white overflow-hidden">
           {heroImage && (
             <Image
               src={heroImage.imageUrl}
               alt={heroImage.description}
               data-ai-hint={heroImage.imageHint}
               fill
-              className="object-cover brightness-50"
+              className="object-cover"
               priority
             />
           )}
-          <div className="relative z-10 p-4 animate-fade-in-up">
-            <h1 className="text-4xl font-extrabold tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl font-headline uppercase" style={{ letterSpacing: '0.1em' }}>
-              HydroChill
-            </h1>
-            <p className="max-w-[700px] mx-auto mt-4 text-lg md:text-xl text-primary-foreground/80">
-              The future of hydration is here. Self-purifying, perfectly insulated, and intelligently connected.
-            </p>
-            <div className="mt-8">
-              <Button asChild size="lg" className="font-bold">
-                <Link href="/features">
-                  Discover HydroChill <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="relative z-10 container mx-auto px-4 w-full h-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 items-center h-full gap-8 animate-fade-in-up">
+              <div className="text-left space-y-6">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight uppercase">
+                  Hydrochill:
+                  <br />
+                  The Future
+                  <br />
+                  of Hydration
+                </h1>
+                <p className="max-w-md text-lg text-primary-foreground/80">
+                  Experience unparalleled temperature control and elegant design.
+                </p>
+                <Button asChild size="lg" variant="outline" className="bg-transparent border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                  <Link href="/features">
+                    Explore Features
+                  </Link>
+                </Button>
+              </div>
+              <div className="flex flex-col items-center justify-center space-y-8">
+                {productShotImage && (
+                  <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px]">
+                     <Image
+                        src={productShotImage.imageUrl}
+                        alt={productShotImage.description}
+                        data-ai-hint={productShotImage.imageHint}
+                        fill
+                        className="object-contain"
+                      />
+                  </div>
+                )}
+                <div className="flex justify-center items-center gap-8 md:gap-12">
+                    <div className="flex flex-col items-center text-center">
+                        <ThermometerSun className="h-8 w-8 text-primary" />
+                        <p className="mt-2 text-sm">Precision<br/>Temperature</p>
+                    </div>
+                    <div className="flex flex-col items-center text-center">
+                        <Zap className="h-8 w-8 text-primary" />
+                        <p className="mt-2 text-sm">All-Day Charge</p>
+                    </div>
+                    <div className="flex flex-col items-center text-center">
+                        <Droplets className="h-8 w-8 text-primary" />
+                        <p className="mt-2 text-sm">Durable Design</p>
+                    </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
+
 
         {/* Benefits Section */}
         <section id="benefits" className="w-full py-12 md:py-24 lg:py-32 bg-background">
