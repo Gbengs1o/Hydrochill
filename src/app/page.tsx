@@ -6,6 +6,7 @@ import BenefitsSection from '@/components/home/benefits-section';
 import HeroSection from '@/components/home/hero-section';
 import ProductIntroSection from '@/components/home/product-intro-section';
 import IntroVideo from '@/components/home/intro-video';
+import ConceptPhaseSection from '@/components/home/concept-phase-section';
 
 const SESSION_STORAGE_KEY = 'hydrochill_intro_played';
 
@@ -33,17 +34,16 @@ export default function Home() {
     return null;
   }
 
+  if (showVideo) {
+    return <IntroVideo onComplete={handleVideoComplete} />;
+  }
+
   return (
-    <div className="flex flex-col min-h-dvh">
-      {showVideo ? (
-        <IntroVideo onComplete={handleVideoComplete} />
-      ) : (
-        <main className="flex-1">
-          <HeroSection />
-          <BenefitsSection />
-          <ProductIntroSection />
-        </main>
-      )}
-    </div>
+    <main className="flex-1">
+      <HeroSection />
+      <BenefitsSection />
+      <ProductIntroSection />
+      <ConceptPhaseSection />
+    </main>
   );
 }
