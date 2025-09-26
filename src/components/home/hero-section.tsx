@@ -6,9 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Droplets, Thermometer, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-
-const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
+import { cn } from '@/lib/utils';
 
 const features = [
   {
@@ -27,8 +25,14 @@ const features = [
 
 export default function HeroSection() {
     const [scrollY, setScrollY] = useState(0);
+    const [showContent, setShowContent] = useState(false);
 
     useEffect(() => {
+      // Delay for the content to "pop in"
+      const contentTimer = setTimeout(() => {
+        setShowContent(true);
+      }, 3000); // 3 seconds after the background image is shown
+
       const handleScroll = () => {
         setScrollY(window.scrollY);
       };
@@ -37,33 +41,35 @@ export default function HeroSection() {
   
       return () => {
         window.removeEventListener('scroll', handleScroll);
+        clearTimeout(contentTimer);
       };
     }, []);
 
   return (
-    <section className="relative w-full h-screen min-h-[800px] flex items-center justify-center text-white overflow-hidden">
+    <section className="relative w-full h-screen min-h-[800px] flex items-center justify-center text-white overflow-hidden animate-bg-fade-in">
       {/* Background Image */}
-      {heroImage && (
         <div
           className="absolute inset-0 w-full h-full"
           style={{ transform: `translateY(${scrollY * 0.4}px)` }}
         >
           <Image
-            src={heroImage.imageUrl}
-            alt={heroImage.description}
-            data-ai-hint={heroImage.imageHint}
+            src="/images/herosss.png"
+            alt="HydroChill bottle on a dramatic background"
+            data-ai-hint="bottle background"
             fill
             className="object-cover"
             priority
           />
         </div>
-      )}
         
       {/* Overlay for darkening the background image slightly */}
       <div className="absolute inset-0 bg-black/30 z-10" />
 
       {/* Content Container */}
-      <div className="relative z-20 w-full h-full flex items-center">
+      <div className={cn(
+          "relative z-20 w-full h-full flex items-center transition-opacity duration-1000",
+          showContent ? "opacity-100" : "opacity-0"
+        )}>
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             
@@ -116,3 +122,4 @@ export default function HeroSection() {
     </section>
   );
 }
+
