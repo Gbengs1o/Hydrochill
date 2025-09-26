@@ -2,14 +2,14 @@
   "placeholderImages": [
     {
       "id": "hero",
-      "description": "Dark abstract background",
+      "description": "Dark abstract background with floating particles",
       "imageUrl": "https://violet-finch-601645.hostingersite.com/wp-content/uploads/2025/09/hhero.png",
-      "imageHint": "dark background"
+      "imageHint": "dark background particles"
     },
     {
       "id": "product-shot",
       "description": "Clean product shot of the HydroChill water bottle",
-      "imageUrl": "https://violet-finch-601645.hostingersite.com/wp-content/uploads/2025/09/image-2.png",
+      "imageUrl": "/hydrochill-bottle.png",
       "imageHint": "water bottle"
     },
     {
