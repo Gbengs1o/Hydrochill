@@ -40,7 +40,7 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
       clearTimeout(fadeTimer);
       clearInterval(progressInterval);
     };
-  }, [hasStarted, onComplete]);
+  }, [hasStarted]);
 
   const handleAnimationEnd = () => {
     if (isFadingOut) {
