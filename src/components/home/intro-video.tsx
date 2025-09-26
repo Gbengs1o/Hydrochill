@@ -23,7 +23,8 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
 
     const updateProgress = () => {
       if (video.duration) {
-        setProgress((video.currentTime / video.duration) * 100);
+        const currentProgress = (video.currentTime / video.duration) * 100;
+        setProgress(currentProgress);
       }
     };
 
@@ -33,13 +34,18 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
 
     video.addEventListener('timeupdate', updateProgress);
     video.addEventListener('ended', handleVideoEnd);
+    
+    // Attempt to play the video
     video.play().catch(error => {
       console.error("Video autoplay failed:", error);
-      // Fallback for browsers that block autoplay despite interaction
+      // If play fails, it might be due to browser restrictions.
+      // We will assume the user needs to interact.
+      // The button covers this, but as a fallback, we complete.
       onComplete();
     });
 
     return () => {
+      // Clean up event listeners
       video.removeEventListener('timeupdate', updateProgress);
       video.removeEventListener('ended', handleVideoEnd);
     };
@@ -78,6 +84,7 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
             className="w-full h-full object-cover"
             preload="auto"
             playsInline
+            muted={false} 
           >
             <source src="/videos/intro.mp4" type="video/mp4" />
             Your browser does not support the video tag.
