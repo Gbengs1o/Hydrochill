@@ -1,15 +1,11 @@
 
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '../ui/button';
 import { PlayCircle } from 'lucide-react';
-
-// YouTube Video ID from the URL: https://youtu.be/zI-raje6Qpc
-const VIDEO_ID = 'zI-raje6Qpc';
-const VIDEO_DURATION_MS = 23000; // 23 seconds
 
 type IntroVideoProps = {
   onComplete: () => void;
@@ -19,28 +15,35 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
   const [hasStarted, setHasStarted] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [progress, setProgress] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (!hasStarted) return;
+    const video = videoRef.current;
+    if (!video || !hasStarted) return;
 
-    // Timer to start fading out the video
-    const fadeTimer = setTimeout(() => {
+    const updateProgress = () => {
+      if (video.duration) {
+        setProgress((video.currentTime / video.duration) * 100);
+      }
+    };
+
+    const handleVideoEnd = () => {
       setIsFadingOut(true);
-    }, VIDEO_DURATION_MS);
+    };
 
-    // Interval to update the progress bar
-    const progressInterval = setInterval(() => {
-      setProgress(prev => {
-        const nextProgress = prev + (100 / (VIDEO_DURATION_MS / 100));
-        return Math.min(nextProgress, 100);
-      });
-    }, 100);
+    video.addEventListener('timeupdate', updateProgress);
+    video.addEventListener('ended', handleVideoEnd);
+    video.play().catch(error => {
+      console.error("Video autoplay failed:", error);
+      // Fallback for browsers that block autoplay despite interaction
+      onComplete();
+    });
 
     return () => {
-      clearTimeout(fadeTimer);
-      clearInterval(progressInterval);
+      video.removeEventListener('timeupdate', updateProgress);
+      video.removeEventListener('ended', handleVideoEnd);
     };
-  }, [hasStarted]);
+  }, [hasStarted, onComplete]);
 
   const handleAnimationEnd = () => {
     if (isFadingOut) {
@@ -70,13 +73,15 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
         </div>
       ) : (
         <>
-          <iframe
-            src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=0&controls=0&showinfo=0&rel=0&loop=0&modestbranding=1&iv_load_policy=3&enablejsapi=1`}
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            className="w-full h-full"
-          ></iframe>
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover"
+            preload="auto"
+            playsInline
+          >
+            <source src="/videos/intro.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none">
             <div className="w-1/3 max-w-sm flex flex-col items-center text-white text-center">
                 <p className="text-lg font-semibold tracking-wider mb-4">Experience the future...</p>
