@@ -4,19 +4,37 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Droplets, Thermometer, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
+const features = [
+  {
+    Icon: Thermometer,
+    title: 'Precision Temperature',
+  },
+  {
+    Icon: Zap,
+    title: 'All-Day Charge',
+  },
+  {
+    Icon: Droplets,
+    title: 'Durable Design',
+  },
+];
+
+const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
+
 export default function HeroSection() {
     const [scrollY, setScrollY] = useState(0);
     const [showContent, setShowContent] = useState(false);
-    const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
 
     useEffect(() => {
+      // Delay for the content to "pop in"
       const contentTimer = setTimeout(() => {
         setShowContent(true);
-      }, 500); 
+      }, 3000); // 3 seconds after the background image is shown
 
       const handleScroll = () => {
         setScrollY(window.scrollY);
@@ -33,7 +51,7 @@ export default function HeroSection() {
   return (
     <section className="relative w-full h-screen min-h-[800px] flex items-center justify-center text-white overflow-hidden animate-bg-fade-in">
       {/* Background Image */}
-      {heroImage && (
+       {heroImage && (
         <div
           className="absolute inset-0 w-full h-full"
           style={{ transform: `translateY(${scrollY * 0.4}px)` }}
@@ -47,10 +65,10 @@ export default function HeroSection() {
             priority
           />
         </div>
-      )}
+        )}
         
       {/* Overlay for darkening the background image slightly */}
-      <div className="absolute inset-0 bg-black/50 z-10" />
+      <div className="absolute inset-0 bg-black/30 z-10" />
 
       {/* Content Container */}
       <div className={cn(
@@ -63,23 +81,46 @@ export default function HeroSection() {
             {/* Left Side - Text Content */}
             <div className="text-center md:text-left">
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight uppercase leading-none mb-6">
-                Ready to Elevate
+                HYDROCHILL:
                 <br />
-                Your Hydration?
+                THE FUTURE
+                <br />
+                OF HYDRATION
               </h1>
               <p className="text-lg lg:text-xl text-white/90 mb-8 leading-relaxed max-w-md mx-auto md:mx-0">
-                Discover the HydroChill experience today.
+                Experience unparalleled temperature control and elegant design.
               </p>
               <Button 
                 asChild 
                 size="lg" 
-                className="border-2 border-cyan-400 bg-cyan-400/10 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all duration-300 px-8 py-3 text-sm font-semibold tracking-wider uppercase"
+                className="border-2 border-cyan-400 bg-transparent text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all duration-300 px-8 py-3 text-sm font-semibold tracking-wider uppercase"
               >
                 <Link href="/features">
-                  Explore Features
+                  EXPLORE FEATURES
                 </Link>
               </Button>
             </div>
+
+            {/* Right Side - Feature Icons */}
+            <div className="flex justify-center md:justify-end items-center">
+              <div className="flex flex-col items-start gap-16 lg:gap-20">
+                {features.map((feature, index) => (
+                  <div 
+                    key={index} 
+                    className="flex items-center gap-4 text-left cursor-default group"
+                  >
+                    <feature.Icon 
+                      className="h-8 w-8 lg:h-10 lg:w-10 text-cyan-400 transition-all duration-300 group-hover:scale-110" 
+                      strokeWidth={1.5} 
+                    />
+                    <p className="text-sm lg:text-base font-medium text-white/90 transition-colors duration-300 tracking-wide whitespace-nowrap">
+                      {feature.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
