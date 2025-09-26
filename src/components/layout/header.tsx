@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -18,15 +18,39 @@ const navLinks = [
 
 export default function Header() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const headerClasses = cn(
+    "fixed top-0 z-50 w-full transition-all duration-300 ease-in-out",
+    isScrolled ? "bg-card/80 backdrop-blur-sm shadow-lg h-20" : "bg-transparent h-24",
+    pathname !== '/' ? "bg-card shadow-lg h-20" : ""
+  );
+
+  const linkColorClasses = cn(
+    "relative text-sm font-medium uppercase tracking-wider transition-colors duration-300",
+    "after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:h-px after:w-full after:origin-center after:transition-transform",
+    (isScrolled || pathname !== '/') ? "text-white/80 hover:text-white after:bg-white" : "text-black/80 hover:text-black after:bg-black",
+  );
+  
+  const activeLinkColorClasses = (isScrolled || pathname !== '/') ? "text-white after:scale-x-100" : "text-black after:scale-x-100";
+  const mobileMenuIconColor = (isScrolled || pathname !== '/') ? "text-white" : "text-black";
+
   return (
-    <header className="absolute top-0 z-50 w-full text-white">
-      <div className="container mx-auto flex h-24 items-center justify-between px-4">
+    <header className={headerClasses}>
+      <div className="container mx-auto flex h-full items-center justify-between px-4">
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link href="/" className="flex items-center gap-2">
-            <HydroChillLogo className="h-6 w-auto" />
+            <HydroChillLogo className={cn("h-6 w-auto transition-colors duration-300", (isScrolled || pathname !== '/') ? 'text-white' : 'text-black')} />
           </Link>
         </div>
         
@@ -38,13 +62,7 @@ export default function Header() {
               <Link
                 key={label}
                 href={href}
-                className={cn(
-                  "relative text-sm font-medium uppercase tracking-wider transition-colors duration-300",
-                  "after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:h-px after:w-full after:bg-white after:origin-center after:transition-transform",
-                  isActive 
-                    ? "text-white after:scale-x-100" 
-                    : "text-white/70 hover:text-white after:scale-x-0 hover:after:scale-x-100"
-                )}
+                className={cn(linkColorClasses, isActive && activeLinkColorClasses)}
               >
                 {label}
               </Link>
@@ -56,7 +74,7 @@ export default function Header() {
         <div className="md:hidden">
           <Sheet open={isMobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="hover:bg-white/10">
+              <Button variant="ghost" size="icon" className={cn("hover:bg-white/10", mobileMenuIconColor)}>
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open menu</span>
               </Button>
@@ -64,7 +82,7 @@ export default function Header() {
             <SheetContent side="right" className="w-full bg-black/90 backdrop-blur-sm border-l-gray-800 text-white">
               <div className="flex justify-between items-center mb-8 px-2">
                  <Link href="/" onClick={() => setMobileMenuOpen(false)}>
-                    <HydroChillLogo className="h-6 w-auto" />
+                    <HydroChillLogo className="h-6 w-auto text-white" />
                  </Link>
                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
                    <X className="h-6 w-6" />
