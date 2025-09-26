@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { VisualShowcase } from '@/components/visual-showcase';
-import { Check, Gem, ShieldZap, Smartphone, ThermometerSnowflake, X } from 'lucide-react';
+import { Check, Gem, Shield, Smartphone, ThermometerSnowflake, X } from 'lucide-react';
 
 const features = [
   {
-    icon: <ShieldZap className="h-8 w-8" />,
+    icon: <Shield className="h-8 w-8" />,
     title: 'UV-C Purification',
     description: 'Neutralizes 99.9% of harmful bio-contaminants in 60 seconds. Enjoy pure water from any source, worry-free.',
   },
