@@ -1,10 +1,6 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-
-const productShotImage = PlaceHolderImages.find(p => p.id === 'product-shot');
 
 export default function ProductIntroSection() {
   return (
@@ -27,16 +23,7 @@ export default function ProductIntroSection() {
           </Button>
         </div>
         <div className="flex justify-center">
-          {productShotImage && (
-            <Image
-              src={productShotImage.imageUrl}
-              alt={productShotImage.description}
-              data-ai-hint={productShotImage.imageHint}
-              width={400}
-              height={400}
-              className="rounded-xl object-contain animate-fade-in-up"
-            />
-          )}
+          {/* The image that was here has been removed as requested. */}
         </div>
       </div>
     </section>
