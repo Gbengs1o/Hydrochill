@@ -1,7 +1,7 @@
 // Header Component
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -111,6 +111,20 @@ const features = [
 ];
 
 export default function HeroSection() {
+    const [scrollY, setScrollY] = useState(0);
+
+    useEffect(() => {
+      const handleScroll = () => {
+        setScrollY(window.scrollY);
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+
   return (
     <>
       {/* Header is now part of the layout and not called here */}
@@ -119,14 +133,19 @@ export default function HeroSection() {
       <section className="relative w-full h-screen min-h-[800px] flex items-center text-white overflow-hidden">
         {/* Background Image Only */}
         {heroImage &&
-          <Image
-            src={heroImage.imageUrl}
-            alt={heroImage.description}
-            data-ai-hint={heroImage.imageHint}
-            fill
-            className="object-cover"
-            priority
-          />
+          <div
+            className="absolute inset-0 w-full h-full"
+            style={{ transform: `translateY(${scrollY * 0.4}px)` }}
+          >
+            <Image
+              src={heroImage.imageUrl}
+              alt={heroImage.description}
+              data-ai-hint={heroImage.imageHint}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         }
         
         {/* Content Container */}
