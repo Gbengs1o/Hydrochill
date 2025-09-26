@@ -38,8 +38,11 @@ export default function Header() {
       <Link
         href={href}
         className={cn(
-          "text-sm font-medium transition-colors hover:text-primary-foreground",
-          isActive ? "text-primary-foreground" : "text-primary-foreground/70"
+          "text-sm font-medium transition-colors",
+          isScrolled
+            ? "text-primary-foreground/70 hover:text-primary-foreground"
+            : "text-foreground/70 hover:text-foreground",
+          isActive && (isScrolled ? "text-primary-foreground" : "text-foreground")
         )}
       >
         {label}
@@ -70,7 +73,7 @@ export default function Header() {
       )}
     >
       <div className="container flex h-16 items-center">
-        <Link href="/" className="mr-6 flex items-center text-primary-foreground">
+        <Link href="/" className={cn("mr-6 flex items-center", isScrolled ? "text-primary-foreground" : "text-primary")}>
           <HydroChillLogo className="h-6 w-auto" />
         </Link>
         <nav className="hidden md:flex items-center gap-6">
@@ -84,7 +87,7 @@ export default function Header() {
           </Button>
           <Sheet open={isMobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden text-primary-foreground hover:bg-primary-foreground/10">
+              <Button variant="ghost" size="icon" className={cn("md:hidden", isScrolled ? "text-primary-foreground hover:bg-primary-foreground/10" : "text-foreground hover:bg-foreground/10")}>
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open menu</span>
               </Button>
