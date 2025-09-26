@@ -4,6 +4,29 @@
 
 @layer base {
   :root {
+    --background: 224 71% 4%; /* #010816 - Midnight Blue */
+    --foreground: 210 40% 98%; /* #F8FAFC - Almost White */
+    --card: 224 71% 9%; /* #071026 - Darker Blue */
+    --card-foreground: 210 40% 98%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 195 91% 48%; /* #0ABFF9 - Vibrant Cyan */
+    --primary-foreground: 224 71% 4%;
+    --secondary: 215 28% 17%; /* #1E293B - Slate Blue */
+    --secondary-foreground: 210 40% 98%;
+    --muted: 215 28% 17%;
+    --muted-foreground: 215 21% 65%; /* #94A3B8 - Lighter Slate */
+    --accent: 173 96% 35%; /* #09AC8B - Rich Teal */
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 215 28% 17%;
+    --input: 215 28% 17%;
+    --ring: 195 91% 48%;
+    --radius: 0.75rem;
+  }
+ 
+  .light {
     --background: 210 80% 98%; /* #F5F9FC - Ice White */
     --foreground: 0 0% 12%; /* #1E1E1E - Charcoal Black */
     --card: 210 80% 98%;
@@ -23,29 +46,6 @@
     --border: 210 12% 85%;
     --input: 210 12% 85%;
     --ring: 195 100% 50%; /* #00BFFF - Electric Blue */
-    --radius: 0.75rem;
-  }
- 
-  .dark {
-    --background: 0 0% 8%; /* Darker than Charcoal for better contrast */
-    --foreground: 210 80% 98%;
-    --card: 0 0% 12%; /* Charcoal Black */
-    --card-foreground: 210 80% 98%;
-    --popover: 0 0% 8%;
-    --popover-foreground: 210 80% 98%;
-    --primary: 191 100% 35%; /* Brighter Aqua for dark mode */
-    --primary-foreground: 210 80% 98%;
-    --secondary: 210 12% 30%;
-    --secondary-foreground: 210 80% 98%;
-    --muted: 210 12% 20%;
-    --muted-foreground: 210 12% 70%;
-    --accent: 173 58% 65%; /* Brighter Mint for dark mode */
-    --accent-foreground: 0 0% 12%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 210 12% 20%;
-    --input: 210 12% 20%;
-    --ring: 195 100% 50%;
   }
 }
  

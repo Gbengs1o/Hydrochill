@@ -7,7 +7,7 @@ export default function AboutPage() {
   return (
     <div className="animate-fade-in-up">
       {/* Page Header */}
-      <section className="bg-muted/30">
+      <section className="bg-card">
         <div className="container px-4 md:px-6 py-16 md:py-24 text-center">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl font-headline">
             About <span className="text-gradient">HydroChill</span>

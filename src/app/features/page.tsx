@@ -30,7 +30,7 @@ export default function FeaturesPage() {
   return (
     <div className="animate-fade-in-up">
       {/* Page Header */}
-      <section className="bg-muted/30">
+      <section className="bg-card">
         <div className="container px-4 md:px-6 py-16 md:py-24 text-center">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl font-headline">
             Unparalleled <span className="text-gradient">Innovation</span>
@@ -65,7 +65,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* Comparison Chart */}
-      <section className="py-12 md:py-24 bg-muted/30">
+      <section className="py-12 md:py-24 bg-card">
         <div className="container px-4 md:px-6">
           <h2 className="text-3xl font-extrabold text-center tracking-tight sm:text-4xl md:text-5xl font-headline mb-12">
             The HydroChill Advantage
