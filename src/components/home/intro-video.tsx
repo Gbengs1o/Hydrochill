@@ -87,7 +87,7 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
             preload="auto"
             playsInline
           >
-            <source src="/images/intro.mp4" type="video/mp4" />
+            <source src="https://res.cloudinary.com/dipeanbvi/video/upload/v1758907835/Untitled_video_-_Made_with_Clipchamp_vpzm9u.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none">
