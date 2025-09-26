@@ -52,7 +52,7 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
       onTransitionEnd={handleAnimationEnd}
     >
       <iframe
-        src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=0&controls=0&showinfo=0&rel=0&loop=0&modestbranding=1&iv_load_policy=3&enablejsapi=1`}
+        src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=0&modestbranding=1&iv_load_policy=3&enablejsapi=1`}
         frameBorder="0"
         allow="autoplay; encrypted-media"
         allowFullScreen
@@ -61,7 +61,10 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
        <div className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none">
         <div className="w-1/3 max-w-sm flex flex-col items-center text-white text-center">
             <p className="text-lg font-semibold tracking-wider mb-4">Experience the future...</p>
-            <Progress value={progress} className="w-full h-2 bg-white/20" />
+            <div className="relative w-full">
+              <Progress value={progress} className="w-full h-2 bg-white/20" />
+              <span className="absolute right-0 -bottom-6 text-sm font-mono">{Math.round(progress)}%</span>
+            </div>
         </div>
       </div>
     </div>
