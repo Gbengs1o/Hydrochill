@@ -1,11 +1,35 @@
 
+'use client';
+
+import { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import { HydroChillLogo } from '@/components/icons';
-import { Facebook, Instagram, Twitter } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { useToast } from '@/hooks/use-toast';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState('');
+  const { toast } = useToast();
+
+  const handleJoinSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (email && email.includes('@')) {
+      toast({
+        title: "You're on the list!",
+        description: "Thanks for signing up. We'll keep you updated on our release.",
+      });
+      setEmail('');
+    } else {
+       toast({
+        variant: "destructive",
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+      });
+    }
+  };
 
   return (
     <footer className="bg-card text-card-foreground border-t border-border">
@@ -45,26 +69,27 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Social Media */}
-          <div className="flex flex-col items-center md:items-end">
-            <h3 className="text-lg font-semibold mb-4 font-headline">Follow Us</h3>
-            <div className="flex gap-4">
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="#" aria-label="Twitter">
-                  <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="#" aria-label="Instagram">
-                  <Instagram className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="#" aria-label="Facebook">
-                  <Facebook className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
-                </Link>
-              </Button>
-            </div>
+          {/* Column 3: Signup Form */}
+          <div className="flex flex-col items-center md:items-start md:col-span-1 md:items-end">
+            <h3 className="text-lg font-semibold mb-4 font-headline text-center md:text-left w-full">Stay Updated</h3>
+            <form onSubmit={handleJoinSubmit} className="flex flex-col gap-2 w-full max-w-sm">
+                <p className="text-sm text-muted-foreground mb-2 text-center md:text-left">
+                    Be the first to know about our launch.
+                </p>
+              <div className="flex gap-2">
+                <Input
+                    type="email"
+                    placeholder="Your email address"
+                    className="flex-1 bg-background/50 border-primary/20"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <Button type="submit" size="icon" aria-label="Join waitlist">
+                    <Send />
+                </Button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
