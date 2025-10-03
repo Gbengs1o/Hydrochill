@@ -1,6 +1,7 @@
 
 'use client';
 
+import * as React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card } from '@/components/ui/card';
@@ -11,6 +12,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 
 const teamMembers = [
   {
@@ -52,6 +54,10 @@ const teamMembers = [
 ];
 
 export default function TeamSection() {
+   const plugin = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true })
+  );
+
   return (
     <section className="py-12 md:py-24 bg-card">
       <div className="container px-4 md:px-6">
@@ -60,11 +66,14 @@ export default function TeamSection() {
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">The passionate minds turning the vision of perfect hydration into reality.</p>
         </div>
         <Carousel
+          plugins={[plugin.current]}
           opts={{
             align: "start",
             loop: true,
           }}
           className="w-full max-w-sm mx-auto sm:max-w-xl md:max-w-3xl lg:max-w-5xl"
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
         >
           <CarouselContent>
             {teamMembers.map((member, index) => {
