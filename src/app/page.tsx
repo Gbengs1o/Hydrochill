@@ -9,17 +9,17 @@ import IntroVideo from '@/components/home/intro-video';
 import ConceptPhaseSection from '@/components/home/concept-phase-section';
 import EarlyAccessSection from '@/components/home/early-access-section';
 
-const SESSION_STORAGE_KEY = 'hydrochill_intro_played';
+const LOCAL_STORAGE_KEY = 'hydrochill_intro_played';
 
 export default function Home() {
   const [showVideo, setShowVideo] = useState<boolean | null>(null);
 
   useEffect(() => {
     // This logic runs only on the client, after the initial render.
-    const introPlayed = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    const introPlayed = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (!introPlayed) {
       setShowVideo(true);
-      sessionStorage.setItem(SESSION_STORAGE_KEY, 'true');
+      localStorage.setItem(LOCAL_STORAGE_KEY, 'true');
     } else {
       setShowVideo(false);
     }
