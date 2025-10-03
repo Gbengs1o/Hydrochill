@@ -80,7 +80,7 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
             className="w-full h-full object-cover"
             playsInline
           >
-            <source src="/videos/intro.mp4" type="video/mp4" />
+            <source src="/images/intro.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
            <div className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none">
