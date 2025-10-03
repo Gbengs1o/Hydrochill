@@ -3,7 +3,9 @@
 
 import { useEffect, useRef } from 'react';
 import AboutHero from '@/components/about/about-hero';
-import AboutContent from '@/components/about/about-content';
+import AboutMainContent from '@/components/about/about-main-content';
+import TeamSection from '@/components/about/team-section';
+import AboutVision from '@/components/about/about-vision';
 
 export default function AboutPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -48,7 +50,9 @@ export default function AboutPage() {
       <AboutHero videoRef={videoRef} />
       {/* This ref is used to define the scrollable area that controls the video */}
       <div ref={scrollSectionRef}>
-        <AboutContent />
+        <TeamSection />
+        <AboutMainContent />
+        <AboutVision />
       </div>
     </div>
   );

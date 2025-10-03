@@ -26,37 +26,39 @@ const teamMembers = [
 
 export default function TeamSection() {
   return (
-    <div className="mt-16 pt-16 border-t">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold tracking-tight font-headline sm:text-4xl">Meet the Innovators</h2>
-        <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">The passionate minds turning the vision of perfect hydration into reality.</p>
+    <section className="py-12 md:py-24 bg-card">
+      <div className="container px-4 md:px-6">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold tracking-tight font-headline sm:text-4xl">Meet the Innovators</h2>
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">The passionate minds turning the vision of perfect hydration into reality.</p>
+        </div>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {teamMembers.map((member) => {
+            const memberImage = PlaceHolderImages.find(p => p.id === member.imageId);
+            return (
+              <Card key={member.name} className="text-center border-none shadow-lg bg-background hover:scale-105 transition-transform duration-300">
+                <CardHeader className="items-center">
+                  {memberImage && (
+                    <Image
+                      src={memberImage.imageUrl}
+                      alt={`Portrait of ${member.name}`}
+                      data-ai-hint={memberImage.imageHint}
+                      width={120}
+                      height={120}
+                      className="rounded-full object-cover"
+                    />
+                  )}
+                  <CardTitle className="mt-4 text-2xl font-bold font-headline">{member.name}</CardTitle>
+                  <p className="text-primary font-semibold">{member.title}</p>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{member.bio}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
       </div>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {teamMembers.map((member) => {
-          const memberImage = PlaceHolderImages.find(p => p.id === member.imageId);
-          return (
-            <Card key={member.name} className="text-center border-none shadow-lg bg-card hover:scale-105 transition-transform duration-300">
-              <CardHeader className="items-center">
-                {memberImage && (
-                  <Image
-                    src={memberImage.imageUrl}
-                    alt={`Portrait of ${member.name}`}
-                    data-ai-hint={memberImage.imageHint}
-                    width={120}
-                    height={120}
-                    className="rounded-full object-cover"
-                  />
-                )}
-                <CardTitle className="mt-4 text-2xl font-bold font-headline">{member.name}</CardTitle>
-                <p className="text-primary font-semibold">{member.title}</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{member.bio}</p>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
-    </div>
+    </section>
   );
 }
