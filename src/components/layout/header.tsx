@@ -14,7 +14,6 @@ const navLinks = [
   { href: '/', label: 'HOME' },
   { href: '/about', label: 'ABOUT US' },
   { href: '/features', label: 'FEATURES' },
-  { href: '/upload', label: 'UPLOAD' },
 ];
 
 export default function Header() {
