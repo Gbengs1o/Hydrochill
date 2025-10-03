@@ -1,11 +1,13 @@
 
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Progress } from '@/components/ui/progress';
 import { Button } from '../ui/button';
 import { PlayCircle } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+
+const VIDEO_DURATION_SECONDS = 14;
 
 type IntroVideoProps = {
   onComplete: () => void;
@@ -15,38 +17,32 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
   const [hasStarted, setHasStarted] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [progress, setProgress] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !hasStarted) return;
+    if (!hasStarted) return;
 
-    const updateProgress = () => {
-      if (video.duration) {
-        const currentProgress = (video.currentTime / video.duration) * 100;
+    // Since we can't get events from the iframe, we'll use a timer.
+    const startTime = Date.now();
+
+    const progressInterval = setInterval(() => {
+      const elapsedTime = (Date.now() - startTime) / 1000;
+      const currentProgress = (elapsedTime / VIDEO_DURATION_SECONDS) * 100;
+      if (currentProgress <= 100) {
         setProgress(currentProgress);
+      } else {
+        setProgress(100);
       }
-    };
+    }, 100);
 
-    const handleVideoEnd = () => {
+    const fadeOutTimer = setTimeout(() => {
       setIsFadingOut(true);
-    };
-
-    video.addEventListener('timeupdate', updateProgress);
-    video.addEventListener('ended', handleVideoEnd);
-    
-    video.play().catch(error => {
-      console.error("Video autoplay failed:", error);
-      onComplete();
-    });
+    }, VIDEO_DURATION_SECONDS * 1000);
 
     return () => {
-      if (video) {
-        video.removeEventListener('timeupdate', updateProgress);
-        video.removeEventListener('ended', handleVideoEnd);
-      }
+      clearTimeout(fadeOutTimer);
+      clearInterval(progressInterval);
     };
-  }, [hasStarted, onComplete]);
+  }, [hasStarted]);
 
   const handleAnimationEnd = () => {
     if (isFadingOut) {
@@ -76,16 +72,13 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
         </div>
       ) : (
         <>
-          <video
-            ref={videoRef}
+          <iframe
+            src="https://player.cloudinary.com/embed/?cloud_name=dipeanbvi&public_id=Untitled_video_-_Made_with_Clipchamp_vpzm9u&profile=cld-default&autoplay=true&mute=1"
             className="w-full h-full object-cover"
-            preload="auto"
-            playsInline
-          >
-            <source src="/videos/intro.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none">
+            allow="autoplay; encrypted-media; picture-in-picture"
+            style={{ border: 'none' }}
+          ></iframe>
+           <div className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none">
             <div className="w-1/3 max-w-sm flex flex-col items-center text-white text-center">
                 <p className="text-lg font-semibold tracking-wider mb-4">Experience the future...</p>
                 <div className="relative w-full">
