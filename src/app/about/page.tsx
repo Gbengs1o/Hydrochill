@@ -17,36 +17,28 @@ export default function AboutPage() {
 
     if (!video || !scrollSection) return;
 
-    // We need to load the video's metadata to get its duration.
-    video.load();
-
     const handleScroll = () => {
-      // Calculate how far the user has scrolled through the "scrollSection"
       const { top, height } = scrollSection.getBoundingClientRect();
-      
-      // We want the video to play out over the height of the scroll section.
-      // We add window.innerHeight so the effect starts as the section enters the viewport.
       const scrollableHeight = height - window.innerHeight;
       
-      // Calculate the scroll progress within the section (from 0 to 1)
       let scrollProgress = -top / scrollableHeight;
-      scrollProgress = Math.max(0, Math.min(1, scrollProgress)); // Clamp between 0 and 1
+      scrollProgress = Math.max(0, Math.min(1, scrollProgress)); 
 
-      // If the video has a duration, update its current time based on scroll progress
       if (video.duration) {
         video.currentTime = scrollProgress * video.duration;
       }
     };
     
-    // We can't immediately get the duration, so we wait for the metadata to load.
     const onMetadataLoaded = () => {
-       // Start listening to scroll events only after we have video info.
        window.addEventListener('scroll', handleScroll, { passive: true });
     };
 
     video.addEventListener('loadedmetadata', onMetadataLoaded);
+    // Ensure metadata is loaded if video is cached
+    if (video.readyState >= 1) {
+      onMetadataLoaded();
+    }
 
-    // Cleanup: remove the event listener when the component unmounts.
     return () => {
       window.removeEventListener('scroll', handleScroll);
       video.removeEventListener('loadedmetadata', onMetadataLoaded);
@@ -65,7 +57,7 @@ export default function AboutPage() {
             playsInline
             muted
           >
-            <source src="https://res.cloudinary.com/dipeanbvi/video/upload/v1758907835/Untitled_video_-_Made_with_Clipchamp_vpzm9u.mp4" type="video/mp4" />
+            <source src="/videos/toprotate.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           {/* Overlay */}

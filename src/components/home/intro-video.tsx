@@ -35,17 +35,12 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
     video.addEventListener('timeupdate', updateProgress);
     video.addEventListener('ended', handleVideoEnd);
     
-    // Attempt to play the video
     video.play().catch(error => {
       console.error("Video autoplay failed:", error);
-      // If play fails, it might be due to browser restrictions.
-      // We will assume the user needs to interact.
-      // The button covers this, but as a fallback, we complete.
       onComplete();
     });
 
     return () => {
-      // Clean up event listeners
       if (video) {
         video.removeEventListener('timeupdate', updateProgress);
         video.removeEventListener('ended', handleVideoEnd);
@@ -87,7 +82,7 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
             preload="auto"
             playsInline
           >
-            <source src="https://res.cloudinary.com/dipeanbvi/video/upload/v1758907835/Untitled_video_-_Made_with_Clipchamp_vpzm9u.mp4" type="video/mp4" />
+            <source src="/videos/intro.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none">
