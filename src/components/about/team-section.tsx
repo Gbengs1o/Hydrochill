@@ -9,8 +9,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 
@@ -102,8 +100,6 @@ export default function TeamSection() {
               </CarouselItem>
             )})}
           </CarouselContent>
-          <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 fill-background" />
-          <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 fill-background" />
         </Carousel>
       </div>
     </section>
