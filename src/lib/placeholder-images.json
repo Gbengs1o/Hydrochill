@@ -9,7 +9,7 @@
     {
       "id": "product-shot",
       "description": "Clean product shot of the HydroChill water bottle",
-      "imageUrl": "https://i.imgur.com/7v4jLcn.png",
+      "imageUrl": "https://i.imgur.com/kSj8I4p.png",
       "imageHint": "water bottle"
     },
     {
@@ -47,6 +47,24 @@
       "description": "Portrait of the Head of Design",
       "imageUrl": "https://images.unsplash.com/photo-1609736925367-c3294993dc1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxkZXNpZ25lciUyMHBvcnRyYWl0fGVufDB8fHx8MTc1OTQ4NjA2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "designer portrait"
+    },
+    {
+      "id": "team-member-4",
+      "description": "Portrait of the Marketing Lead",
+      "imageUrl": "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "marketing portrait"
+    },
+    {
+      "id": "team-member-5",
+      "description": "Portrait of the Sustainability Officer",
+      "imageUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "professional portrait"
+    },
+    {
+      "id": "team-member-6",
+      "description": "Portrait of the Lead App Developer",
+      "imageUrl": "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "developer portrait"
     }
   ]
 }

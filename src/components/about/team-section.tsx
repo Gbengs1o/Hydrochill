@@ -1,7 +1,16 @@
 
+'use client';
+
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 const teamMembers = [
   {
@@ -22,6 +31,24 @@ const teamMembers = [
     bio: 'Chloe believes that functional items should also be beautiful. Her minimalist aesthetic and obsession with user experience are evident in every curve and interaction of the HydroChill bottle.',
     imageId: 'team-member-3',
   },
+    {
+    name: 'Maria Rodriguez',
+    title: 'Marketing Lead',
+    bio: 'Maria is a storyteller who crafts compelling narratives that connect with our audience, driving brand awareness and community engagement.',
+    imageId: 'team-member-4',
+  },
+  {
+    name: 'David Lee',
+    title: 'Sustainability Officer',
+    bio: 'David ensures that our products and processes are environmentally responsible, aligning our business goals with our commitment to the planet.',
+    imageId: 'team-member-5',
+  },
+  {
+    name: 'Sophia Chen',
+    title: 'Lead App Developer',
+    bio: 'Sophia leads the development of our mobile app, creating a seamless and intuitive user experience for tracking hydration and unlocking new features.',
+    imageId: 'team-member-6',
+  },
 ];
 
 export default function TeamSection() {
@@ -32,32 +59,43 @@ export default function TeamSection() {
           <h2 className="text-3xl font-bold tracking-tight font-headline sm:text-4xl">Meet the Innovators</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">The passionate minds turning the vision of perfect hydration into reality.</p>
         </div>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {teamMembers.map((member) => {
-            const memberImage = PlaceHolderImages.find(p => p.id === member.imageId);
-            return (
-              <Card key={member.name} className="text-center border-none shadow-lg bg-background hover:scale-105 transition-transform duration-300">
-                <CardHeader className="items-center">
-                  {memberImage && (
-                    <Image
-                      src={memberImage.imageUrl}
-                      alt={`Portrait of ${member.name}`}
-                      data-ai-hint={memberImage.imageHint}
-                      width={120}
-                      height={120}
-                      className="rounded-full object-cover"
-                    />
-                  )}
-                  <CardTitle className="mt-4 text-2xl font-bold font-headline">{member.name}</CardTitle>
-                  <p className="text-primary font-semibold">{member.title}</p>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{member.bio}</p>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full max-w-sm mx-auto sm:max-w-xl md:max-w-3xl lg:max-w-5xl"
+        >
+          <CarouselContent>
+            {teamMembers.map((member, index) => {
+              const memberImage = PlaceHolderImages.find(p => p.id === member.imageId);
+              return (
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <div className="p-1">
+                   <Card className="relative group overflow-hidden rounded-xl border-none shadow-lg">
+                      {memberImage && (
+                      <Image
+                        src={memberImage.imageUrl}
+                        alt={`Portrait of ${member.name}`}
+                        data-ai-hint={memberImage.imageHint}
+                        width={400}
+                        height={400}
+                        className="object-cover aspect-square transition-transform duration-300 group-hover:scale-110"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center text-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <h3 className="text-2xl font-bold font-headline text-white">{member.name}</h3>
+                      <p className="text-primary font-semibold mt-1">{member.title}</p>
+                      <p className="text-white/80 mt-4 text-sm">{member.bio}</p>
+                    </div>
+                  </Card>
+                </div>
+              </CarouselItem>
+            )})}
+          </CarouselContent>
+          <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 fill-background" />
+          <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 fill-background" />
+        </Carousel>
       </div>
     </section>
   );
