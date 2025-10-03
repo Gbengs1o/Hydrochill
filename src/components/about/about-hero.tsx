@@ -17,7 +17,7 @@ export default function AboutHero({ videoRef }: AboutHeroProps) {
         preload="auto"
         playsInline
         muted
-        src="/videos/toprotate.mp4"
+        src="/images/toprotate.mp4"
       >
         Your browser does not support the video tag.
       </video>
