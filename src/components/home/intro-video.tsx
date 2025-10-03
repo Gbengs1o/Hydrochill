@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
-import { PlayCircle } from 'lucide-react';
+import { PlayCircle, Volume2, VolumeX } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 
 type IntroVideoProps = {
@@ -15,12 +15,14 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
   const [hasStarted, setHasStarted] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (!hasStarted || !videoRef.current) return;
 
     const video = videoRef.current;
+    video.muted = isMuted;
 
     const handleTimeUpdate = () => {
       if (video.duration) {
@@ -45,7 +47,7 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
       video.removeEventListener('timeupdate', handleTimeUpdate);
       video.removeEventListener('ended', handleVideoEnd);
     };
-  }, [hasStarted]);
+  }, [hasStarted, isMuted]);
 
   const handleAnimationEnd = () => {
     if (isFadingOut) {
@@ -55,6 +57,13 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
 
   const handlePlayClick = () => {
     setHasStarted(true);
+  };
+  
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+    if (videoRef.current) {
+        videoRef.current.muted = !isMuted;
+    }
   };
 
   return (
@@ -93,6 +102,15 @@ export default function IntroVideo({ onComplete }: IntroVideoProps) {
                 </div>
             </div>
           </div>
+          <Button
+            onClick={toggleMute}
+            variant="ghost"
+            size="icon"
+            className="absolute top-4 right-4 text-white hover:bg-white/20 hover:text-white"
+          >
+            {isMuted ? <VolumeX /> : <Volume2 />}
+            <span className="sr-only">Toggle mute</span>
+          </Button>
         </>
       )}
     </div>
