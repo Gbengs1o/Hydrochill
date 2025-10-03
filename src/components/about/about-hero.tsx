@@ -1,77 +1,52 @@
+
 'use client';
 
-import { RefObject, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-type AboutHeroProps = {
-  videoRef: RefObject<HTMLVideoElement>;
-};
+const aboutHeroImage = PlaceHolderImages.find(p => p.id === 'about-hero');
 
-export default function AboutHero({ videoRef }: AboutHeroProps) {
-  const sectionRef = useRef<HTMLElement>(null);
+export default function AboutHero() {
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const video = videoRef.current;
-    const section = sectionRef.current;
-    
-    if (!video || !section) return;
-
-    // Pause the video initially
-    video.pause();
-
     const handleScroll = () => {
-      if (!video || !section) return;
-
-      // Get section position
-      const rect = section.getBoundingClientRect();
-      const sectionTop = rect.top;
-      const sectionHeight = rect.height;
-      const windowHeight = window.innerHeight;
-
-      // Calculate scroll progress through the section
-      // When section top is at bottom of screen: progress = 0
-      // When section top is at top of screen: progress = 1
-      const scrollProgress = Math.max(
-        0,
-        Math.min(1, (windowHeight - sectionTop) / (windowHeight + sectionHeight))
-      );
-
-      // Set video time based on scroll progress
-      if (video.duration) {
-        const targetTime = scrollProgress * video.duration;
-        video.currentTime = targetTime;
-      }
+      setScrollY(window.scrollY);
     };
 
-    // Initial call
-    handleScroll();
-
-    // Add scroll listener
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [videoRef]);
+  }, []);
 
   return (
     <section 
-      ref={sectionRef}
-      className="relative h-screen min-h-[700px] flex items-center justify-center text-white overflow-hidden"
+      className="relative h-screen min-h-[800px] flex items-center justify-center text-white overflow-hidden"
     >
-      {/* Background Video */}
-      <video
-        ref={videoRef}
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
-        preload="auto"
-        playsInline
-        muted
-        src="/images/toprotate.mp4"
-      >
-        Your browser does not support the video tag.
-      </video>
+      {/* Background Image */}
+      {aboutHeroImage && (
+        <div
+          className="absolute inset-0 w-full h-full"
+          style={{ transform: `translateY(${scrollY * 0.4}px)` }}
+        >
+          <Image
+            src={aboutHeroImage.imageUrl}
+            alt={aboutHeroImage.description}
+            data-ai-hint={aboutHeroImage.imageHint}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+      )}
+      
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50 z-10" />
 
+      {/* Content */}
       <div className="relative z-20 container px-4 md:px-6 text-center">
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl font-headline">
           About <span className="text-gradient">HydroChill</span>

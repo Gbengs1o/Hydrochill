@@ -19,6 +19,12 @@
       "imageHint": "innovation lab"
     },
     {
+      "id": "about-hero",
+      "description": "HydroChill bottle from top",
+      "imageUrl": "/images/atu.png",
+      "imageHint": "bottle top"
+    },
+    {
       "id": "lifestyle",
       "description": "A person hiking and drinking from a water bottle",
       "imageUrl": "https://images.unsplash.com/photo-1605539585404-a846f1193d19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxoaWtlciUyMGRyaW5raW5nfGVufDB8fHx8MTc1ODg2MjMxOHww&ixlibrb-4.1.0&q=80&w=1080",
