@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
@@ -23,13 +23,10 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // On the homepage, header is transparent so scrolling should make it opaque
-      // On other pages, header is already opaque, so we don't need to change it
       if (pathname === '/') {
         setIsScrolled(window.scrollY > 50);
       }
     };
-    // Reset scroll state when path changes
     setIsScrolled(pathname !== '/');
     
     window.addEventListener('scroll', handleScroll);
@@ -92,10 +89,6 @@ export default function Header() {
                  <Link href="/" onClick={() => setMobileMenuOpen(false)}>
                     <HydroChillLogo className="h-6 w-auto text-white" />
                  </Link>
-                 <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
-                   <X className="h-6 w-6" />
-                   <span className="sr-only">Close menu</span>
-                 </Button>
               </div>
               <nav className="flex flex-col items-center justify-center gap-8 text-center mt-16">
                 {navLinks.map(({ href, label }) => {
